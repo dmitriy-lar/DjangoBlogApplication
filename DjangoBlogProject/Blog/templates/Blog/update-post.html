@@ -1,0 +1,53 @@
+{% extends 'Blog/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<main>
+    <div class="row mb-5"></div>
+    <div class="row mb-5"></div>
+    <div class="container">
+        <div class="row text-center">
+            <h1>Create Post</h1>
+        </div>
+    </div>
+    <section class="vh-350">
+        <div class="container py-1 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-md-9 col-lg-7 col-xl-9">
+                    <div class="card shadow" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex text-black">
+                                <div class="flex-grow-1 ms-3">
+                                    <div class="d-flex pt-1">
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {{ form.media }}
+                                            {{ form|crispy }}
+                                            <br>
+
+                                            <button type="submit" class="btn btn-outline-primary me-1 flex-grow-2">
+                                                Save
+                                            </button>
+
+                                            <a href="{% url 'my_posts' %}">
+                                                <button type="button" class="btn btn-primary flex-grow-1">Cancel
+                                                </button>
+                                            </a>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!--{% include 'Blog/include_files/_footer.html' %}-->
+{% endblock %}

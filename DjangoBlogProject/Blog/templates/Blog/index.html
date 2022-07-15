@@ -1,0 +1,107 @@
+{% extends 'Blog/base.html' %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Hero Slider Section ======= -->
+    <section id="hero-slider" class="hero-slider">
+        <div class="container-md" data-aos="fade-in">
+            <div class="row">
+                <div class="col-12">
+                    <div class="swiper sliderFeaturedPosts">
+                        <div class="swiper-wrapper">
+                            {% for item in slider_posts %}
+                            <div class="swiper-slide">
+                                <a href="{% url 'post' item.pk %}" class="img-bg d-flex align-items-end"
+                                   style="background-image: url({{ item.thumbnail.url }});">
+                                    <div class="img-bg-inner">
+                                        <h2>{{ item.title }}</h2>
+                                        <p>{{ item.overview }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="custom-swiper-button-next">
+                            <span class="bi-chevron-right"></span>
+                        </div>
+                        <div class="custom-swiper-button-prev">
+                            <span class="bi-chevron-left"></span>
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Hero Slider Section -->
+
+
+    <!-- ======= Post Grid Section ======= -->
+    <section id="posts" class="posts">
+        <div class="container" data-aos="fade-up">
+            <h1>Most Recent</h1>
+            <div class="row g-5">
+                <div class="col-lg-12">
+                    <div class="row g-5">
+                        <div class="col-lg-3 border-start custom-border">
+                            {% for item in first_col %}
+                            <div class="post-entry-1">
+                                <a href="{% url 'post' item.pk %}"><img src="{{ item.thumbnail.url }}" alt=""
+                                                                class="img-fluid" style="width:100%"></a>
+                                <div class="post-meta"><span class="date">{{ item.category.title }}</span> <span
+                                        class="mx-1">&bullet;</span> <span>{{ item.date_created }}</span></div>
+                                <h2><a href="{% url 'post' item.pk %}">{{ item.title }}</a></h2>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-3 border-start custom-border">
+                            {% for item in second_col %}
+                            <div class="post-entry-1">
+                                <a href="{% url 'post' item.pk %}"><img src="{{ item.thumbnail.url }}" alt=""
+                                                                class="img-fluid" style="width:100%"></a>
+                                <div class="post-meta"><span class="date">{{ item.category.title }}</span> <span
+                                        class="mx-1">&bullet;</span> <span>{{ item.date_created }}</span></div>
+                                <h2><a href="{% url 'post' item.pk %}">{{ item.title }}</a></h2>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-3 border-start custom-border">
+                            {% for item in third_col %}
+                            <div class="post-entry-1">
+                                <a href="{% url 'post' item.pk %}"><img src="{{ item.thumbnail.url }}" alt=""
+                                                                class="img-fluid" style="width:100%"></a>
+                                <div class="post-meta"><span class="date">{{ item.category.title }}</span> <span
+                                        class="mx-1">&bullet;</span> <span>{{ item.date_created }}</span></div>
+                                <h2><a href="{% url 'post' item.pk %}">{{ item.title }}</a></h2>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Trending Section -->
+                        <div class="col-lg-3">
+                            <div class="trending">
+                                <h3>Trending</h3>
+                                <ul class="trending-post">
+                                    {% for item in trending_posts %}
+                                    <li>
+                                        <a href="{% url 'post' item.pk %}">
+                                            <span class="number">{{ forloop.counter }}</span>
+                                            <h3>{{ item.title }} <i class="bi bi-eye-fill"></i> {{ item.view_count }}</h3>
+                                            <span class="author">{{ item.author }}</span>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div> <!-- End Trending Section -->
+                    </div>
+                </div>
+            </div> <!-- End .row -->
+        </div>
+    </section> <!-- End Post Grid Section -->
+
+{% include 'Blog/include_files/_footer_main.html' %}
+</main>
+{% endblock %}

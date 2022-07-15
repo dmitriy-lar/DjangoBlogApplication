@@ -1,0 +1,79 @@
+{% extends 'Blog/base.html' %}
+
+{% block content %}
+<style>
+    .dot {
+  height: 100px;
+  width: 100px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<main>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-md-9 col-lg-7 col-xl-5">
+                    <div class="card shadow" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                            <div class="d-flex text-black">
+                                {% if author.profile_picture %}
+                                <div class="flex-shrink-0">
+                                    <img src="{{ author.profile_picture.url }}"
+                                         alt="Generic placeholder image" class="img-fluid"
+                                         style="width: 180px; border-radius: 10px;">
+                                </div>
+                                {% endif %}
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-1">{{ author.username }}</h5>
+                                    <p class="mb-2 pb-1" style="color: #2b2a2a;">{{ author.email }}</p>
+                                    <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                                         style="background-color: #efefef;">
+                                        <div>
+                                            <p class="small text-muted mb-1">Posts</p>
+                                            <p class="mb-0">{{ posts.count }}</p>
+                                        </div>
+                                        <div class="px-3">
+                                            <p class="small text-muted mb-1">Comments</p>
+                                            <p class="mb-0">{{ comments.count }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex pt-1">
+                                        <a href="{% url 'update' %}">
+                                            <button type="button" class="btn btn-outline-primary me-1 flex-grow-2">
+                                                Update
+                                            </button>
+                                        </a>
+                                        <a href="{% url 'account_logout' %}">
+                                            <button type="button" class="btn btn-primary flex-grow-1">Log out</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<!--{% include 'Blog/include_files/_footer.html' %}-->
+{% endblock %}

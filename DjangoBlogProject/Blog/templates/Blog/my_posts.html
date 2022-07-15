@@ -1,0 +1,68 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<main id="main">
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-9" data-aos="fade-up">
+                    <h1 class="mb-4">My posts <span class="lead">({{ posts.count }})</span></h1>
+                    <a href="{% url 'create_post' %}">
+                        <button type="button" class="btn btn-warning mb-5 w-25 text-right">Create</button>
+                    </a>
+
+                    {% for item in posts %}
+                    <h3 class="category-title">Category: {{ item.category }}</h3>
+                    <div class="d-md-flex post-entry-2 half">
+
+                        <a href="{% url 'post' item.pk %}" class="me-4 thumbnail">
+                            <img src="{{ item.thumbnail.url }}" alt="" class="img-fluid">
+                        </a>
+
+                        <div>
+                            <div class="post-meta"><span class="date"></span>{{ item.category }}<span class="mx-1">&bullet;</span>
+                                <span>{{ item.date_created }}</span></div>
+                            <h3><a href="{% url 'post' item.pk %}" >{{ item.title }}</a></h3>
+                            <p>{{ item.overview }}</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img
+                                        src="{% if item.author.profile_picture %} {{ item.author.profile_picture.url }} {% endif %}"
+                                        alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0 me-5">{{ item.author.username }}</h3>
+                                </div>
+
+                                <p>
+                                <div>
+                                    <a href="{% url 'update_post' item.pk %}">
+                                        <button type="button" class="btn btn-outline-primary me-1 flex-grow-2">
+                                            Update
+                                        </button>
+                                    </a>
+                                    <a href="{% url 'delete_post' item.pk %}">
+                                        <button type="button" class="btn btn-danger flex-grow-1" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">Delete
+                                        </button>
+                                    </a>
+                                </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+
+                {% include 'Blog/include_files/_sidebar.html' %}
+
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+
+{% include 'Blog/include_files/_footer.html' %}
+{% endblock %}

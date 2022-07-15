@@ -1,0 +1,52 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<main id="main">
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-9" data-aos="fade-up">
+                      {% if queryset %}
+                    <h3 class="category-title">Search: {{ search_name }} </h3>
+                    <h2 class="category-title">{{ queryset.count }} was found</h2>
+                    {% for item in queryset %}
+                    <div class="d-md-flex post-entry-2 half">
+                        <a href="{% url 'post' item.pk %}" class="me-4 thumbnail">
+                            <img src="{{ item.thumbnail.url }}" alt="" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date"></span>{{ item.category }}<span class="mx-1">&bullet;</span>
+                                <span>{{ item.date_created }}</span></div>
+                            <h3><a href="{% url 'post' item.pk %}">{{ item.title }}</a></h3>
+                            <p>{{ item.overview }}</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img
+                                        src="{% if item.author.profile_picture %} {{ item.author.profile_picture.url }} {% endif %}"
+                                        alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">{{ item.author.username }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                     <h3 class="category-title">Search: matches not found</h3>
+                    {% endif %}
+                </div>
+
+
+
+                {% include 'Blog/include_files/_sidebar.html' %}
+
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+
+{% include 'Blog/include_files/_footer.html' %}
+{% endblock %}
+

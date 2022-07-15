@@ -1,0 +1,69 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<main id="main">
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-9" data-aos="fade-up">
+                    <h3 class="category-title">Category: {{ category_obj }}</h3>
+
+                    {% for item in posts %}
+                    <div class="d-md-flex post-entry-2 half">
+                        <a href="{% url 'post' item.pk %}" class="me-4 thumbnail">
+                            <img src="{{ item.thumbnail.url }}" alt="" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date"></span>{{ item.category }}<span class="mx-1">&bullet;</span>
+                                <span>{{ item.date_created }}</span></div>
+                            <h3><a href="{% url 'post' item.pk %}">{{ item.title }}</a></h3>
+                            <p>{{ item.overview }}</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img
+                                        src="{% if item.author.profile_picture %} {{ item.author.profile_picture.url }} {% endif %}"
+                                        alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">{{ item.author.username }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                    <!--Pagination-->
+                    <div class="text-start py-4">
+                        <div class="custom-pagination">
+                            {% if posts.has_previous %}
+                            <a href="?{{ page_request_var }}={{ posts.previous_page_number }}" class="prev">Prevous</a>
+                            {% endif %}
+                            {% for item in posts.paginator.page_range %}
+                            {% if item > posts.number|add:-3 and item < posts.number|add:3 %}
+                                {% if posts.number == item %}
+                                    <a class="active" href="?{{ page_request_var }}={{ item }}">{{ item }}</a>
+                                {% else %}
+                                    <a href="?{{ page_request_var }}={{ item }}">{{ item }}</a>
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% if posts.has_next %}
+                            <a href="?{{ page_request_var }}={{ posts.next_page_number }}" class="next">Next</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {% include 'Blog/include_files/_sidebar.html' %}
+
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+
+{% include 'Blog/include_files/_footer.html' %}
+{% endblock %}
